@@ -1,4 +1,4 @@
-import { Sidebar } from "./shared/components/sidebar";
+import { Sidebar } from "./shared/components/sidebar/sidebar.tsx";
 
 const App = () => (
   <Sidebar />
