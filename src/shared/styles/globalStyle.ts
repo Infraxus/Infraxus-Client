@@ -1,7 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import color from "./color";
 
-
 const GlobalStyle = createGlobalStyle `
     @font-face {
         font-family: 'Anta';
@@ -35,3 +34,5 @@ const GlobalStyle = createGlobalStyle `
         cursor: pointer;
     }
 `
+
+export default GlobalStyle;
