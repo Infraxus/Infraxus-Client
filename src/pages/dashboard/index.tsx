@@ -14,23 +14,23 @@ const PageContainer = styled.div`
 `;
 
 const MainContainer = styled.div`
-    padding: 1.87rem 1.88rem;
-    width: 71.25rem;
+    padding: 2.5vh 2.25vw;
+    width: 80vw;
     height: 100vh;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.94rem
+    gap: 2vh;
 `;
 
 const ServerStatusContainer = styled.div`
     display: flex;
-    gap: 0.94rem;
+    gap: 1vw;
 `;
 
 const UsageStatusContainer = styled.div`
     display: flex;
-    gap: 0.94rem
+    gap: 1vw;
 `;
 
 export const Dashboard : React.FC = () => {

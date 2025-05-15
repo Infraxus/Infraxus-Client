@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import color from '@/shared/styles/color.ts'
 
 const ServerStatusContainer = styled.div`
-    width: 21.875rem;
-    height: 8.1875rem;
+    width: 24.55vw;
+    height: 12vh;
     flex-shrink: 0;
 
     border-radius: 0.75rem;

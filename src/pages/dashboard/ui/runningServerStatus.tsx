@@ -7,8 +7,8 @@ const RunningServerContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    width: 67.5rem;
-    height: 10rem;
+    width: 75.5vw;
+    height: 15vh;
     flex-shrink: 0;
     border-radius: 0.9375rem;
     background: ${color.NeutralColor600};   
@@ -26,15 +26,15 @@ const Title = styled.p`
 const GridContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
+    gap: 0.5vw;
 `;
 
 const RunningServerStatusContainer = styled.div`
     padding: 0.72rem 0.74rem;
     display: flex;
     gap: 0.81rem;
-    width: 21.25rem;
-    height: 3.9375rem;
+    width: 24vw;
+    height: 6.25vh;
     flex-shrink: 0;
     border-radius: 0.25rem;
     background: ${color.NeutralColor800};

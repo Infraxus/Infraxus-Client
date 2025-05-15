@@ -6,9 +6,9 @@ const ErrorServerContainer = styled.div`
     padding: 1.81rem 1rem;
     display: flex;
     flex-direction: column;
-    gap: 0.94rem;
-    width: 67.5rem;
-    height: 19.125rem;
+    gap: 2vh;
+    width: 75.5vw;
+    height: 30vh;
     flex-shrink: 0;
     border-radius: 0.9375rem;
     background: ${color.NeutralColor600};   
@@ -26,15 +26,15 @@ const Title = styled.p`
 const GridContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    gap: 1.5vh 0.25vw;
 `;
 
 const ErrorServerStatusContainer = styled.div`
     padding: 0.72rem 0.74rem;
     display: flex;
-    gap: 0.81rem;
-    width: 32.1875rem;
-    height: 3.7535rem;
+    gap: 1vw;
+    width: 36vw;
+    height: 6vh;
     flex-shrink: 0;
     border-radius: 0.25rem;
     background: ${color.NeutralColor800};
@@ -75,7 +75,7 @@ const Time = styled.p`
     margin: auto 0;
     color: ${color.NeutralColor300};
     text-align: right;
-    width: 19rem;
+    width: 20vw;
     font-family: "Inter";
     font-size: 0.75rem;
     font-style: normal;
