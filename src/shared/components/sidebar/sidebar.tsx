@@ -17,7 +17,7 @@ import activeSetting from '@/assets/active-settings-icon.svg';
 
 const SidebarContainer = styled.aside`
   hegiht: 100vh;
-  width: 18.75rem;
+  width: 20vw;
 
   display: flex;
   flex-direction: column;
