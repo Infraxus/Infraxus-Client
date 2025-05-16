@@ -7,8 +7,8 @@ const RecentBuiltServerContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    width: 75.5vw;
-    height: 15vh;
+    width: 78.34vw;
+    height: 12vh;
     flex-shrink: 0;
     border-radius: 0.9375rem;
     background: ${color.NeutralColor600};   
@@ -51,6 +51,13 @@ const StatusContainer = styled.div.withConfig({
     background-color: ${({ bgColor }) => bgColor};
 `;
 
+const CenterContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: auto 0;
+`;
+
 const ServerName = styled.p`
     color: ${color.NeutralColor100};
     font-family: "Inter";
@@ -77,7 +84,7 @@ const Time = styled.p`
     margin: auto 0;
     color: ${color.NeutralColor300};
     text-align: right;
-    width: 10rem;
+    width: 13vw;
     font-family: "Inter";
     font-size: 0.75rem;
     font-style: normal;
@@ -109,10 +116,10 @@ export const RecentBuiltServerStatus: React.FC<RecentBuiltServersProps> = ({ ser
                         <li key={index}>
                             <RecentBuiltServerStatusContainer>
                                 <StatusContainer bgColor={item.isSuccess ? color.Green : color.Red} />
-                                <div>
+                                <CenterContainer>
                                     <ServerName>{item.serverName}</ServerName>
                                     <Port>{item.port}</Port>
-                                </div>
+                                </CenterContainer>
                                 <Time>{item.time}</Time>
                             </RecentBuiltServerStatusContainer>
                         </li>

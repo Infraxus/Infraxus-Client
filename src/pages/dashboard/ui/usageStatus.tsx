@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import color from '@/shared/styles/color.ts';
 
@@ -7,48 +7,50 @@ interface UsageStatusProps {
     percent: number;
     color: string;
 }
- 
+
 const UsageStatusContainer = styled.div`
-    width: 14.3vw;
-    height: 10.75vh;
+    width: 13.2vw;
+    height: 9vh;
     flex-shrink: 0;
     padding: 1.5vh 1vw;
     border-radius: 0.5rem;
     background: ${color.NeutralColor600};
     display: flex;
     flex-direction: column;
-    gap: 0.1rem
+    gap: 0.8vh;
 `;
 
 const Title = styled.p`
     color: ${color.NeutralColor300};
     font-family: Inter;
     font-size: 1rem;
-    font-style: normal;
     font-weight: 400;
-    line-height: 1.5rem; /* 150% */
+    line-height: 1.5rem;
 `;
 
 const PercentValue = styled.p`
     color: ${color.NeutralColor100};
     font-family: Inter;
     font-size: 1.5rem;
-    font-style: normal;
     font-weight: 600;
-    line-height: 2.25rem; /* 150% */
+    line-height: 2.25rem;
+
+    @media (max-width: 1919px) {
+        font-size: 1.2rem;
+    }
 `;
 
 const ProgressBarContainer = styled.div`
     width: 12.5vw;
-    height: 0.5vh;
+    height: 0.75vh;
     flex-shrink: 0;
     background-color: ${color.NeutralColor800};
     border-radius: 1rem;
     overflow: hidden;
-    margin: 0.5rem 0;
+    margin: 0.5vh 0;
 `;
 
-const Progress = styled.div<{ percent: number, color: string }>`
+const Progress = styled.div<{ percent: number; color: string }>`
     width: ${({ percent }) => percent}%;
     height: 100%;
     background-color: ${({ color }) => color};

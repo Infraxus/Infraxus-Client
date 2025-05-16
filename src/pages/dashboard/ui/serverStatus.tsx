@@ -2,15 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 import color from '@/shared/styles/color.ts'
 
-const ServerStatusContainer = styled.div`
-    width: 24.55vw;
-    height: 12vh;
-    flex-shrink: 0;
 
+const ServerStatusContainer = styled.div`
+    width: 22vw;
+    flex-shrink: 0;
     border-radius: 0.75rem;
     background: ${color.SecondaryColor1};
+    padding: 3vh 2vw;  /* 여백을 vh, vw로 수정 */
 
-    padding: 1.5rem 1.4rem
+    @media (min-width: 1920px) {
+        height: 8vh;
+    }
+
+    @media (max-width: 1919px) {
+        height: 7vh;
+    }
 `;
 
 const StatusContainer = styled.div.withConfig({

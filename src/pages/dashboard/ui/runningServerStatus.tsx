@@ -7,8 +7,8 @@ const RunningServerContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    width: 75.5vw;
-    height: 15vh;
+    width: 78.34vw;
+    height: 12vh;
     flex-shrink: 0;
     border-radius: 0.9375rem;
     background: ${color.NeutralColor600};   
@@ -38,6 +38,13 @@ const RunningServerStatusContainer = styled.div`
     flex-shrink: 0;
     border-radius: 0.25rem;
     background: ${color.NeutralColor800};
+`;
+
+const CenterContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: auto 0;
 `;
 
 const StatusContainer = styled.div`
@@ -75,7 +82,7 @@ const Time = styled.p`
     margin: auto 0;
     color: ${color.NeutralColor300};
     text-align: right;
-    width: 10rem;
+    width: 13vw;
     font-family: "Inter";
     font-size: 0.75rem;
     font-style: normal;
@@ -106,10 +113,10 @@ export const RunningServerStatus: React.FC<RunningServersProps> = ({ servers }) 
                         <li key={index}>
                             <RunningServerStatusContainer>
                                 <StatusContainer />
-                                <div>
+                                <CenterContainer>
                                     <ServerName>{item.serverName}</ServerName>
                                     <Port>{item.port}</Port>
-                                </div>
+                                </CenterContainer>
                                 <Time>{item.time}</Time>
                             </RunningServerStatusContainer>
                         </li>

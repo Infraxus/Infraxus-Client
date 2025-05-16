@@ -7,8 +7,8 @@ const ErrorServerContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 2vh;
-    width: 75.5vw;
-    height: 30vh;
+    width: 78.34vw;
+    height: 27vh;
     flex-shrink: 0;
     border-radius: 0.9375rem;
     background: ${color.NeutralColor600};   
@@ -25,19 +25,26 @@ const Title = styled.p`
 
 const GridContainer = styled.div`
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5vh 0.25vw;
+    grid-template-columns: repeat(2, 38.5vw);
+    gap: 1.25vh 1vw;
 `;
 
 const ErrorServerStatusContainer = styled.div`
     padding: 0.72rem 0.74rem;
     display: flex;
     gap: 1vw;
-    width: 36vw;
-    height: 6vh;
+    width: 37.5vw;
+    height: 5vh;
     flex-shrink: 0;
     border-radius: 0.25rem;
     background: ${color.NeutralColor800};
+`;
+
+const CenterContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: auto 0;
 `;
 
 const StatusContainer = styled.div`
@@ -75,7 +82,7 @@ const Time = styled.p`
     margin: auto 0;
     color: ${color.NeutralColor300};
     text-align: right;
-    width: 20vw;
+    width: 24vw;
     font-family: "Inter";
     font-size: 0.75rem;
     font-style: normal;
@@ -103,16 +110,14 @@ export const ErrorServerStatus: React.FC<ErrorServersProps> = ({ servers }) => {
             <GridContainer>
                 {servers.map((item, index) => {
                     return (
-                        <li key={index}>
-                            <ErrorServerStatusContainer>
+                            <ErrorServerStatusContainer key={index}>
                                 <StatusContainer />
-                                <div>
+                                <CenterContainer>
                                     <ServerName>{item.serverName}</ServerName>
                                     <ErrorMessage>{item.error}</ErrorMessage>
-                                </div>
+                                </CenterContainer>
                                 <Time>{item.time}</Time>
                             </ErrorServerStatusContainer>
-                        </li>
                     )
                 })}
             </GridContainer>
