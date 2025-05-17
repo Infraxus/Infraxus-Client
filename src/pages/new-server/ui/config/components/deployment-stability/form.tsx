@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import color from '@/shared/styles/color.ts'
 import styled from 'styled-components';
-import { SmallInput } from '../shared/smallInput';
+import { SmallInput } from '@/shared/components/new-server/smallInput';
 
 const Form = styled.form`
   display: flex;
