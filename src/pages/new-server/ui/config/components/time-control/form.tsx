@@ -7,18 +7,19 @@ import {
   SelectContent,
   SelectItem,
   SelectValue,
-} from '@/pages/new-server/ui/config/components/shared/select';
+} from "@/shared/components/new-server/select";
+import color from '@/shared/styles/color';
 
 interface TimeControlProps {
   nextTab: () => void;
 }
 
 const Container = styled.div`
-  padding: 4vh 3vw;
+  padding: 3vh 1.5vw;
 `;
 
 const Label = styled.label`
-  color: white;
+  color: ${color.NeutralColor100};
   font-size: 1.5vh;
   margin-bottom: 1.5vh;
   display: block;

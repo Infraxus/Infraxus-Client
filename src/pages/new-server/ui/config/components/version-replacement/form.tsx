@@ -7,9 +7,9 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/pages/new-server/ui/config/components/shared/select";
+} from "@/shared/components/new-server/select";
 import color from '@/shared/styles/color';
-import { SmallInput } from '../shared/smallInput';
+import { SmallInput } from '@/shared/components/new-server/smallInput';
 
 interface VersionREplacementFormData {
   switchingMethod: string;
