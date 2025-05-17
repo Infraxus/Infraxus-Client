@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { ResourceSlider } from './resourceSlider';
+import { ResourceSlider } from '@/shared/components/new-server/resourceSlider';
 import color from '@/shared/styles/color';
+import { useNavigate } from 'react-router-dom';
 
 const Form = styled.form`
   display: flex;
@@ -21,7 +22,7 @@ const CancelButton = styled.button`
   width: 95px;
   height: 40px;
   background-color: ${color.SecondaryColor1};
-  color: white;
+  color: ${color.NeutralColor100};
   border-radius: 4px;
   font-size: 14px;
   border: none;
@@ -53,15 +54,17 @@ const MAX_VALUES = {
   storage: 1000,
 };
 
-interface DeploymentTabsProps {
-    nextTab: () => void;
-}
-
-export const ResourceAllocationForm: React.FC<DeploymentTabsProps> = ({ nextTab }) => {
+export const ResourceAllocationForm: React.FC = () => {
   const [cpuCores, setCpuCores] = useState(DEFAULT_VALUES.cpuCores);
   const [memory, setMemory] = useState(DEFAULT_VALUES.memory);
   const [gpu, setGpu] = useState(DEFAULT_VALUES.gpu);
   const [storage, setStorage] = useState(DEFAULT_VALUES.storage);
+
+  const navigate = useNavigate();
+
+  const handleNext = () => {
+    navigate('/new/container');
+  };
 
   return (
     <Form>
@@ -97,7 +100,7 @@ export const ResourceAllocationForm: React.FC<DeploymentTabsProps> = ({ nextTab 
             <CancelButton type="button">
                 취소
             </CancelButton>
-            <SubmitButton type="button" onClick={nextTab}>
+            <SubmitButton type="button" onClick={handleNext}>
                 다음
             </SubmitButton>
       </ButtonContainer>
