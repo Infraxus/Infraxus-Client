@@ -2,7 +2,7 @@ import React from 'react';
 import { styled } from 'styled-components';
 import color from '@/shared/styles/color.ts'
 import { Sidebar } from '@/shared/components/sidebar/sidebar';
-import { NewServerInput } from './ui/newServer';
+import { NewServerForm } from './ui/newServer';
 
 const PageContainer = styled.div`
     display: flex;
@@ -41,7 +41,7 @@ export const NewServer: React.FC = () => {
             <Sidebar />
             <MainContainer>
                 <PageTitle>새로운 서버</PageTitle>
-                <NewServerInput architectures={architectures} />
+                <NewServerForm architectures={architectures} />
             </MainContainer>
         </PageContainer>
     );
