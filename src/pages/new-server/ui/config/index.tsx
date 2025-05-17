@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import color from '@/shared/styles/color.ts';
-import { DeploymentTabs } from './components/shared/tabs';
+import { DeploymentTabs } from '@/shared/components/new-server/tabs';
 import { DeploymentForm } from './components/zero-downtime/form';
 import { VersionReplacementForm } from './components/version-replacement/form';
 import { ProgressiveTrafficForm } from './components/progressive-traffic/form';
@@ -66,7 +66,7 @@ const TabContent = ({ activeTab, nextTab }: { activeTab: string, nextTab: () => 
     case 'customization':
       return <CustomizationForm nextTab={nextTab} />;
     case 'resource-allocation':
-      return <ResourceAllocationForm nextTab={nextTab} />;
+      return <ResourceAllocationForm />;
     default:
       return null;
   }
