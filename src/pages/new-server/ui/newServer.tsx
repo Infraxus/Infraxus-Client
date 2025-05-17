@@ -99,7 +99,7 @@ interface ArchitectureProps {
     architectures: Architecture[];
 }
 
-export const NewServerInput: React.FC<ArchitectureProps> = ({ architectures }) => {
+export const NewServerForm: React.FC<ArchitectureProps> = ({ architectures }) => {
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
     const [inputValue, setInputValue] = useState("");
     
