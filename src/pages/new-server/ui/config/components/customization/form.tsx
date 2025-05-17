@@ -6,34 +6,34 @@ import {
   SelectContent,
   SelectItem,
   SelectValue,
-} from '@/pages/new-server/ui/config/components/shared/select';
+} from "@/shared/components/new-server/select";
 import color from '@/shared/styles/color';
 
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-  gap: 2vw;
-  margin-top: 3vh;
+  gap: 20px;
+  margin-top: 30px;
 `;
 
 const CancelButton = styled.button`
-  width: 12vw;
-  height: 5vh;
-  background-color: ${color.NeutralColor800};
-  color: ${color.NeutralColor100};
-  border-radius: 1vh;
-  font-size: 1.5vh;
+  width: 95px;
+  height: 40px;
+  background-color: #0B1739;
+  color: white;
+  border-radius: 4px;
+  font-size: 14px;
   border: none;
   cursor: pointer;
 `;
 
 const SubmitButton = styled.button`
-  width: 12vw;
-  height: 5vh;
-  background-color: ${color.PrimaryColor};
+  width: 95px;
+  height: 40px;
+  background-color: #CB3CFF;
   color: white;
-  border-radius: 1vh;
-  font-size: 1.5vh;
+  border-radius: 4px;
+  font-size: 14px;
   border: none;
   cursor: pointer;
 `;
@@ -41,25 +41,25 @@ const SubmitButton = styled.button`
 const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 3vh;
-  padding: 4vh 3vw;
+  gap: 20px;
+  padding: 3vh 1.5vw;
 `;
 
 const Label = styled.label`
-  color: white;
+  color: ${color.NeutralColor100};
   font-size: 1.5vh;
   margin-bottom: 1.5vh;
 `;
 
 const TextArea = styled.textarea`
-  width: 92vw;
+  width: 91vw;
   height: 15vh;
   background-color: ${color.NeutralColor800};
   border: 1px solid ${color.NeutralColor700};
   border-radius: 1vh;
   color: ${color.NeutralColor100};
-  padding: 1vh 1vw;
-  font-size: 1.5vh;
+  padding: 0.5vh 0.5vw;
+  font-size: 1rem;
   resize: none;
 `;
 
@@ -112,8 +112,12 @@ export const CustomizationForm: React.FC<DeploymentFormProps> = ({ nextTab }) =>
       </div>
 
       <ButtonContainer>
-        <CancelButton type="button">취소</CancelButton>
-        <SubmitButton type="button" onClick={nextTab}>다음</SubmitButton>
+        <CancelButton type="button">
+          취소
+        </CancelButton>
+        <SubmitButton type="button" onClick={nextTab}>
+          다음
+        </SubmitButton>
       </ButtonContainer>
     </FormContainer>
   );
