@@ -15,19 +15,20 @@ const FormContainer = styled.form`
   background-color: ${color.NeutralColor800};
   padding: 4.17vh 3.13vw;
   border-radius: 0.52vw;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
 `;
 
 const FormTitle = styled.div`
   color: ${color.NeutralColor100};
   font-size: 1.5rem;
   font-weight: 600;
-  margin-bottom: 4.17vh;
 `;
 
 const FormGroup = styled.div`
   display: flex;
-  gap: 2.6vw;
-  margin-bottom: 4.17vh;
+  gap: 1.5vh;
   flex-wrap: wrap;
 
   @media (max-width: 768px) {
@@ -36,18 +37,19 @@ const FormGroup = styled.div`
 `;
 
 const TextAreaContainer = styled.div`
-  margin: 2vh 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
 `;
 
 const Label = styled.label`
   color: ${color.NeutralColor100};
-  font-size: 1.04vh;
-  margin-bottom: 2.08vh;
+  font-size: 1rem;
   display: block;
 `;
 
 const TextArea = styled.textarea`
-  width: 100%;
+  width: 83.75vw;
   height: 13vh;
   background-color: ${color.NeutralColor600};
   border: none;
