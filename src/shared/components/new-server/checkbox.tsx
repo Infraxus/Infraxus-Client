@@ -36,6 +36,9 @@ const Indicator = styled(CheckboxPrimitive.Indicator)`
   align-items: center;
   justify-content: center;
   color: currentColor;
+  color: ${color.NeutralColor100};
+  width: 100%;
+  height: 100%;
 `;
 
 const Checkbox = React.forwardRef<
