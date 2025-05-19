@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import color from '@/shared/styles/color.ts';
 import { DeploymentTabs } from '@/shared/components/new-server/tabs';
-import { DeploymentForm } from './components/zero-downtime/form';
-import { VersionReplacementForm } from './components/version-replacement/form';
-import { ProgressiveTrafficForm } from './components/progressive-traffic/form';
-import { DeploymentStabilityForm } from './components/deployment-stability/form';
-import { TimeControlForm } from './components/time-control/form';
-import { CustomizationForm } from './components/customization/form';
-import { ResourceAllocationForm } from './components/resource-allocation/form';
+import { DeploymentForm } from '@/shared/components/new-server/zero-downtime/form';
+import { VersionReplacementForm } from '@/shared/components/new-server/version-replacement/form';
+import { ProgressiveTrafficForm } from '@/shared/components/new-server/progressive-traffic/form';
+import { DeploymentStabilityForm } from '@/shared/components/new-server/deployment-stability/form';
+import { TimeControlForm } from '@/shared/components/new-server/time-control/form';
+import { CustomizationForm } from '../../../../shared/components/new-server/customization/form';
+import { ResourceAllocationForm } from '@/shared/components/new-server/resource-allocation/form';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 const MainContainer = styled.main`
   display: flex;
@@ -51,7 +52,7 @@ const deploymentTabs = [
   { id: 'resource-allocation', label: '리소스 할당' },
 ];
 
-const TabContent = ({ activeTab, nextTab }: { activeTab: string, nextTab: () => void }) => {
+const TabContent = ({ activeTab, nextTab, name, architecture }: { activeTab: string, nextTab: () => void, name: string, architecture: string }) => {
   switch (activeTab) {
     case 'zero-downtime':
       return <DeploymentForm nextTab={nextTab} />;
@@ -66,7 +67,7 @@ const TabContent = ({ activeTab, nextTab }: { activeTab: string, nextTab: () => 
     case 'customization':
       return <CustomizationForm nextTab={nextTab} />;
     case 'resource-allocation':
-      return <ResourceAllocationForm />;
+      return <ResourceAllocationForm name={name} architecture={architecture} />;
     default:
       return null;
   }
@@ -74,6 +75,9 @@ const TabContent = ({ activeTab, nextTab }: { activeTab: string, nextTab: () => 
 
 export const NewServerConfig: React.FC = () => {
   const [activeTab, setActiveTab] = useState('zero-downtime');
+  const [searchParams] = useSearchParams();
+  const name = searchParams.get("name");
+  const architecture = (searchParams.get("architecture") as "monolithic" | "microservices") || "microservices";
 
   const handleTabChange = (tabId: string) => {
     setActiveTab(tabId);
@@ -97,7 +101,7 @@ export const NewServerConfig: React.FC = () => {
             }))}
             onTabChange={handleTabChange}
           />
-          <TabContent activeTab={activeTab} nextTab={nextTab} />
+          <TabContent activeTab={activeTab} nextTab={nextTab} name={name} architecture={architecture} />
         </DeploymentSection>
       </ContentContainer>
     </MainContainer>
