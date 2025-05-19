@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ResourceSlider } from '@/shared/components/new-server/resourceSlider';
 import color from '@/shared/styles/color';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Form = styled.form`
   display: flex;
@@ -54,7 +54,12 @@ const MAX_VALUES = {
   storage: 1000,
 };
 
-export const ResourceAllocationForm: React.FC = () => {
+interface ResourceAllocationFormProps {
+  name: string;
+  architecture: string;
+}
+
+export const ResourceAllocationForm: React.FC<ResourceAllocationFormProps> = ({ name, architecture }) => {
   const [cpuCores, setCpuCores] = useState(DEFAULT_VALUES.cpuCores);
   const [memory, setMemory] = useState(DEFAULT_VALUES.memory);
   const [gpu, setGpu] = useState(DEFAULT_VALUES.gpu);
@@ -63,7 +68,7 @@ export const ResourceAllocationForm: React.FC = () => {
   const navigate = useNavigate();
 
   const handleNext = () => {
-    navigate('/new/container');
+    navigate(`/new/container?name=${name}&architecture=${architecture}`);
   };
 
   return (

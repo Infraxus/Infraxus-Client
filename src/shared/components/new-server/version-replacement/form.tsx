@@ -88,74 +88,61 @@ export const VersionReplacementForm: React.FC<DeploymentTabsProps> = ({ nextTab 
 
   return (
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
-      {/* 배포 전략 */}
-      <div>
-        <Label>배포 전략</Label>
-        <Select value={switchingMethod} onValueChange={(value) => {
-          setSwitchingMethod(value);
-          setValue("switchingMethod", value);
-        }}>
-          <StyledSelectTrigger>
-            <SelectValue placeholder="배포 전략을 선택하세요" />
-          </StyledSelectTrigger>
-          <SelectContent>
-            <SelectItem value="batch">Batch</SelectItem>
-            <SelectItem value="rolling">Rolling</SelectItem>
-            <SelectItem value="blue-green">Blue-Green</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
+      <Label>배포 전략</Label>
+      <Select value={switchingMethod} onValueChange={(value) => {
+        setSwitchingMethod(value);
+        setValue("switchingMethod", value);
+      }}>
+        <SelectTrigger>
+          <SelectValue placeholder="배포 전략을 선택하세요" />
+        </SelectTrigger>
+        <SelectContent position="popper">
+          <SelectItem value="batch">Batch</SelectItem>
+          <SelectItem value="rolling">Rolling</SelectItem>
+          <SelectItem value="blue-green">Blue-Green</SelectItem>
+        </SelectContent>
+      </Select>
 
-      {/* 트래픽 분배 비율 */}
       <SmallInput
         label="트래픽 분배 비율 (%)"
         type="number"
         placeholder="숫자를 입력하세요"
-        {...register('trafficSplitRatio')}
+        {...register("trafficSplitRatio")}
       />
 
-      {/* 상태 평가 지표 */}
-      <div>
-        <Label>상태 평가 지표</Label>
-        <Select value={monitoringCriteria} onValueChange={(value) => {
-          setMonitoringCriteria(value);
-          setValue("monitoringCriteria", value);
-        }}>
-          <StyledSelectTrigger>
-            <SelectValue placeholder="상태 평가 지표를 선택하세요" />
-          </StyledSelectTrigger>
-          <SelectContent>
-            <SelectItem value="error-rate">Error Rate</SelectItem>
-            <SelectItem value="latency">Latency</SelectItem>
-            <SelectItem value="throughput">Throughput</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
+      <Label>상태 평가 지표</Label>
+      <Select value={monitoringCriteria} onValueChange={(value) => {
+        setMonitoringCriteria(value);
+        setValue("monitoringCriteria", value);
+      }}>
+        <SelectTrigger>
+          <SelectValue placeholder="상태 평가 지표를 선택하세요" />
+        </SelectTrigger>
+        <SelectContent position="popper">
+          <SelectItem value="error-rate">Error Rate</SelectItem>
+          <SelectItem value="latency">Latency</SelectItem>
+          <SelectItem value="throughput">Throughput</SelectItem>
+        </SelectContent>
+      </Select>
 
-      {/* 배포 시점 */}
-      <div>
-        <Label>배포 시점</Label>
-        <Select value={switchingTiming} onValueChange={(value) => {
-          setSwitchingTiming(value);
-          setValue("switchingTiming", value);
-        }}>
-          <StyledSelectTrigger>
-            <SelectValue placeholder="배포 시점을 선택하세요" />
-          </StyledSelectTrigger>
-          <SelectContent>
-            <SelectItem value="automatic">Automatic</SelectItem>
-            <SelectItem value="manual">Manual</SelectItem>
-            <SelectItem value="scheduled">Scheduled</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
+      <Label>배포 시점</Label>
+      <Select value={switchingTiming} onValueChange={(value) => {
+        setSwitchingTiming(value);
+        setValue("switchingTiming", value);
+      }}>
+        <SelectTrigger>
+          <SelectValue placeholder="배포 시점을 선택하세요" />
+        </SelectTrigger>
+        <SelectContent position="popper">
+          <SelectItem value="automatic">Automatic</SelectItem>
+          <SelectItem value="manual">Manual</SelectItem>
+          <SelectItem value="scheduled">Scheduled</SelectItem>
+        </SelectContent>
+      </Select>
+
       <ButtonContainer>
-        <CancelButton type="button">
-          취소
-        </CancelButton>
-        <SubmitButton type="button" onClick={nextTab}>
-          다음
-        </SubmitButton>
+        <CancelButton type="button">취소</CancelButton>
+        <SubmitButton type="submit">다음</SubmitButton>
       </ButtonContainer>
     </FormContainer>
   );
