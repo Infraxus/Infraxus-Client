@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const NewServerContainer = styled.div`
     padding: 2.5vh 1.25vw;
     width: 76.25vw;
-    height: 55vh;
+    height: 37.5vh;
     flex-shrink: 0;
     border-radius: 0.5rem;
     background: ${color.SecondaryColor1};
@@ -91,6 +91,7 @@ interface ArchitectureInputProps {
 }
 
 interface Architecture {
+    architecture: string
     architectureName: string;
     architectureDescription: string;
 }
@@ -123,12 +124,12 @@ export const NewServerForm: React.FC<ArchitectureProps> = ({ architectures }) =>
                             $isSelected={index === selectedIndex}
                             onClick={() => handleClick(index)}
                         >
-                            <ArchitectureInputTitle>{item.architectureName}</ArchitectureInputTitle>
-                            <ArchitectureInputDescription>{item.architectureDescription}</ArchitectureInputDescription>
-                        </ArchitectureInputContainer>
+                        <ArchitectureInputTitle>{item.architectureName}</ArchitectureInputTitle>
+                        <ArchitectureInputDescription>{item.architectureDescription}</ArchitectureInputDescription>
+                    </ArchitectureInputContainer>
                 )
             })}
-            <NextSubmitButton onClick={() => navigate(`/new/config?name=${inputValue}&architecture${architectures[selectedIndex].architectureName}`)}>
+            <NextSubmitButton onClick={() => navigate(`/new/config?name=${inputValue}&architecture=${architectures[selectedIndex].architecture}`)}>
                 생성
             </NextSubmitButton>
         </NewServerContainer>
