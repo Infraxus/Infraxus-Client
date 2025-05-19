@@ -2,6 +2,7 @@ import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 import styled, { css } from "styled-components";
+import color from "@/shared/styles/color";
 
 const Dialog = DialogPrimitive.Root;
 const DialogTrigger = DialogPrimitive.Trigger;
@@ -33,7 +34,7 @@ const DialogContentWrapper = styled(DialogPrimitive.Content)`
   width: 80vw;
   max-width: 70vw;
   padding: 4vh 2.5vw;
-  background-color: #1f2937;
+  background-color: ${color.SecondaryColor1};
   border-radius: 1.5vh;
   box-shadow: 0 2vh 4vh rgba(0, 0, 0, 0.6);
   transition: all 0.2s ease-in-out;
