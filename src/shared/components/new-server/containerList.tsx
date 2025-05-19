@@ -13,12 +13,17 @@ export interface Container {
   name: string;
   port: string;
   description: string;
-  technologies: string[];
+  programmingLanguage: string;
+  framework: string;
+  database: string;
+  messaging: string;
+  buildTool: string;
+  environmentVariables: string;
 }
 
 export interface ContainerListProps {
   containers: Container[];
-  onConfigureContainer: (id: string) => void;
+  onConfigureContainer: (data: any) => void;
   onDeleteContainer: (id: string) => void;
 }
 
@@ -32,11 +37,17 @@ export const ContainerList: React.FC<ContainerListProps> = ({
       {containers.map((container) => (
         <ContainerCard
           key={container.id}
+          id={container.id} // 추가: id 전달
           name={container.name}
           port={container.port}
           description={container.description}
-          technologies={container.technologies}
-          onConfigure={() => onConfigureContainer(container.id)}
+          programmingLanguage={container.programmingLanguage}
+          framework={container.framework}
+          database={container.database}
+          messaging={container.messaging}
+          buildTool={container.buildTool}
+          environmentVariables={container.environmentVariables}
+          onConfigure={(data) => onConfigureContainer({ id: container.id, ...data })}
           onDelete={() => onDeleteContainer(container.id)}
         />
       ))}
