@@ -1,6 +1,7 @@
 import * as React from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { FormInput } from "./formInput";
-import { FormSelect } from "./formSelect";
+import { FormSelect, SelectItem } from "@/shared/components/new-server/select";
 import { Container } from "./containerList";
 import styled from "styled-components";
 import color from "@/shared/styles/color";
@@ -9,6 +10,7 @@ export interface ContainerFormProps {
   initialValues?: Container;
   onCancel: () => void;
   onSave: (data: any) => void;
+  architecture: string;
 }
 
 const FormContainer = styled.form`
@@ -30,10 +32,8 @@ const FormGroup = styled.div`
   display: flex;
   gap: 1.5vh;
   flex-wrap: wrap;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
+  max-width: 84.75vw;
+  min-width: 50vw;
 `;
 
 const TextAreaContainer = styled.div`
@@ -66,34 +66,22 @@ const ButtonGroup = styled.div`
   margin-top: 3.13vh;
 `;
 
-const Button = styled.button<{ primary: boolean }>`
-  width: 13.28vw;
-  height: 5.21vh;
+const Button = styled.button<{ primary: string }>`
+  width: 6vw;
+  height: 4.5vh;
   border-radius: 0.26vw;
   font-size: 1.46vh;
   color: ${color.NeutralColor100};
   cursor: pointer;
-  background-color: ${({ primary }) => (primary ? color.PrimaryColor : "${color.NeutralColor600}")};
-  border: ${({ primary }) => (primary ? "none" : `0.16vw solid ${color.NeutralColor500}`)};
+  background-color: ${({ primary }) =>
+    primary === "true" ? color.PrimaryColor : color.NeutralColor600};
+  border: ${({ primary }) =>
+    primary === "true" ? "none" : `0.16vw solid ${color.NeutralColor500}`};
+
   &:hover {
-    background-color: ${({ primary }) => (primary ? color.PrimaryColor : "${color.NeutralColor600}")};
+    background-color: ${({ primary }) =>
+      primary === "true" ? color.PrimaryColor : color.NeutralColor700};
   }
-`;
-
-const SelectedTechnologiesContainer = styled.div`
-  margin-top: 5.21vh;
-`;
-
-const TechnologyTag = styled.div`
-  display: flex;
-  align-items: center;
-  background-color: ${color.NeutralColor600};
-  color: ${color.NeutralColor100};
-  font-size: 1.04vh;
-  padding: 1.04vh 1.04vw;
-  border-radius: 0.26vw;
-  border: 0.16vw solid ${color.NeutralColor500};
-  margin-bottom: 1.04vh;
 `;
 
 const CloseButton = styled.button`
@@ -109,43 +97,76 @@ export const ContainerForm: React.FC<ContainerFormProps> = ({
   initialValues,
   onCancel,
   onSave,
+  architecture,
 }) => {
+  const navigate = useNavigate();
   const [name, setName] = React.useState(initialValues?.name || "");
   const [port, setPort] = React.useState(initialValues?.port || "");
   const [description, setDescription] = React.useState(initialValues?.description || "");
-  const [selectedTechnologies, setSelectedTechnologies] = React.useState<string[]>(
-    initialValues?.technologies || []
+  const [programmingLanguage, setProgrammingLanguage] = React.useState<string>(
+    initialValues?.programmingLanguage || ""
   );
-  
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    
-    if (!selectedTechnologies.includes(value)) {
-      setSelectedTechnologies(prev => [...prev, value]);
-    }
-  };
+  const [framework, setFramework] = React.useState<string>(
+    initialValues?.framework || ""
+  );
+  const [database, setDatabase] = React.useState<string>(
+    initialValues?.database || ""
+  );
+  const [messaging, setMessaging] = React.useState<string>(
+    initialValues?.messaging || ""
+  );
+  const [buildTool, setBuildTool] = React.useState<string>(
+    initialValues?.buildTool || ""
+  );
+  const [environmentVariables, setEnvironmentVariables] = React.useState<string>(
+    initialValues?.environmentVariables || ""
+  );
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSave({
+    const data = {
       name,
       port,
       description,
-      technologies: selectedTechnologies,
-    });
-    
+      technologies: [
+        programmingLanguage,
+        framework,
+        database,
+        messaging,
+        buildTool,
+      ],
+      environmentVariables, // 추가: 환경 변수 포함
+    };
+    console.log("ContainerForm submitting:", { architecture, data }); // 디버깅 로그
+
+    if (architecture === "monolithic") {
+      navigate(`/server`);
+    } else {
+      onSave(data);
+    }
+
+    // 초기화는 편집 모드(initialValues 존재)일 때만 생략
     if (!initialValues) {
       setName("");
       setPort("");
       setDescription("");
-      setSelectedTechnologies([]);
+      setProgrammingLanguage("");
+      setFramework("");
+      setDatabase("");
+      setMessaging("");
+      setBuildTool("");
+      setEnvironmentVariables("");
     }
   };
+
+  const shouldShowBuildTool = programmingLanguage || framework;
+  const isEditMode = !!initialValues;
+  const showCheckbox = !isEditMode;
 
   return (
     <FormContainer onSubmit={handleSubmit}>
       <FormTitle>{initialValues ? "컨테이너 수정" : "새 컨테이너 추가"}</FormTitle>
-      
+
       <FormGroup>
         <FormInput
           label="컨테이너 이름"
@@ -174,59 +195,103 @@ export const ContainerForm: React.FC<ContainerFormProps> = ({
       </TextAreaContainer>
 
       <FormGroup>
-        <FormSelect label="프로그래밍 언어" showCheckbox id="programming-language" onChange={handleSelectChange}>
-          <option>Java</option>
-          <option>Python</option>
-          <option>JavaScript</option>
+        <FormSelect
+          label="프로그래밍 언어"
+          value={programmingLanguage}
+          onValueChange={(value) => {
+            console.log("Selected Programming Language:", value);
+            setProgrammingLanguage(value);
+          }}
+          isEditMode={isEditMode}
+          showCheckbox
+        >
+          <SelectItem value="Java">Java</SelectItem>
+          <SelectItem value="Python">Python</SelectItem>
+          <SelectItem value="JavaScript">JavaScript</SelectItem>
         </FormSelect>
-        <FormSelect label="프레임워크" showCheckbox id="framework" onChange={handleSelectChange}>
-          <option>Spring Boot</option>
-          <option>Django</option>
-          <option>Express</option>
+
+        <FormSelect
+          label="프레임워크"
+          value={framework}
+          onValueChange={(value) => {
+            console.log("Selected Framework:", value);
+            setFramework(value);
+          }}
+          isEditMode={isEditMode}
+          showCheckbox
+        >
+          <SelectItem value="Spring Boot">Spring Boot</SelectItem>
+          <SelectItem value="Django">Django</SelectItem>
+          <SelectItem value="Express">Express</SelectItem>
         </FormSelect>
       </FormGroup>
 
       <FormGroup>
-        <FormSelect label="데이터베이스" showCheckbox id="database" onChange={handleSelectChange}>
-          <option>PostgreSQL</option>
-          <option>MySQL</option>
-          <option>MongoDB</option>
+        <FormSelect
+          label="데이터베이스"
+          value={database}
+          onValueChange={(value) => {
+            console.log("Selected Database:", value);
+            setDatabase(value);
+          }}
+          isEditMode={isEditMode}
+          showCheckbox
+        >
+          <SelectItem value="PostgreSQL">PostgreSQL</SelectItem>
+          <SelectItem value="MySQL">MySQL</SelectItem>
+          <SelectItem value="MongoDB">MongoDB</SelectItem>
         </FormSelect>
-        <FormSelect label="메시징 시스템" showCheckbox id="messaging" onChange={handleSelectChange}>
-          <option>Apache Kafka</option>
-          <option>RabbitMQ</option>
-          <option>Redis</option>
+
+        <FormSelect
+          label="메시징 시스템"
+          value={messaging}
+          onValueChange={(value) => {
+            console.log("Selected Messaging:", value);
+            setMessaging(value);
+          }}
+          isEditMode={isEditMode}
+          showCheckbox
+        >
+          <SelectItem value="Apache Kafka">Apache Kafka</SelectItem>
+          <SelectItem value="RabbitMQ">RabbitMQ</SelectItem>
+          <SelectItem value="Redis">Redis</SelectItem>
         </FormSelect>
       </FormGroup>
 
       <TextAreaContainer>
-        <FormSelect label="빌드 도구" id="build-tool" onChange={handleSelectChange}>
-          <option>Gradle</option>
-          <option>Maven</option>
-          <option>Make</option>
-        </FormSelect>
+        <Label>환경 변수</Label>
+        <TextArea
+          placeholder="Enter container Environment Variables"
+          value={environmentVariables}
+          onChange={(e) => setEnvironmentVariables(e.target.value)}
+        />
       </TextAreaContainer>
 
-      <ButtonGroup>
-        <Button type="button" primary={false} onClick={onCancel}>취소</Button>
-        <Button type="submit" primary={true} >{initialValues ? "업데이트" : "저장"}</Button>
-      </ButtonGroup>
-
-      {selectedTechnologies.length > 0 && (
-        <SelectedTechnologiesContainer>
-          <Label>선택된 기술:</Label>
-          <div>
-            {selectedTechnologies.map((tech, index) => (
-              <TechnologyTag key={index}>
-                {tech}
-                <CloseButton onClick={() => setSelectedTechnologies(prev => prev.filter(t => t !== tech))}>
-                  ×
-                </CloseButton>
-              </TechnologyTag>
-            ))}
-          </div>
-        </SelectedTechnologiesContainer>
+      {shouldShowBuildTool && (
+        <TextAreaContainer>
+          <FormSelect
+            label="빌드 도구"
+            value={buildTool}
+            onValueChange={(value) => {
+              console.log("Selected Build Tool:", value);
+              setBuildTool(value);
+            }}
+          >
+            <SelectItem value="Gradle">Gradle</SelectItem>
+            <SelectItem value="Maven">Maven</SelectItem>
+            <SelectItem value="Make">Make</SelectItem>
+          </FormSelect>
+        </TextAreaContainer>
       )}
+
+      <ButtonGroup>
+        <Button type="button" primary="false" onClick={onCancel}>
+          취소
+        </Button>
+        <Button type="submit" primary="true">
+          {initialValues ? "업데이트" : "저장"}
+        </Button>
+      </ButtonGroup>
     </FormContainer>
   );
 };
