@@ -12,6 +12,7 @@ const SearchBarWrapper = styled.div`
   width: 15vw;
   display: flex;
   gap: 0.75vw;
+  border-radius: 0.5rem;
 
   @media (max-width: 640px) {
     width: 100%;
@@ -26,10 +27,9 @@ const SearchIcon = styled.svg`
 
 const Input = styled.input`
   width: 100%;
-  height: 5vh;
+  height: 4.5vh;
   background-color: ${color.SecondaryColor1};
   border: none;
-  border-radius: 0.2vw;
   color: white;
   font-size: 1rem;
   box-sizing: border-box;
