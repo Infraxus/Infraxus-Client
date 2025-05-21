@@ -65,38 +65,61 @@ const MetricsSection = styled.div`
   display: flex;
   gap: 1.1vw;
   flex-wrap: wrap;
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 2.5vh;
+  @media (max-width: 1440px) {
+    gap: 0.5vw;
   }
 `;
 
-export const ServerCard: React.FC<ServerCardProps> = ({ id, name, status, metrics }) => {
-  const isRunning = status === 'running';
-  const navigate = useNavigate();
-
-  const onHandleDetail = () => {
-    navigate(`/server/detail/${id}`);
+interface ServerCardProps {
+    id: number;
+    name: string;
+    status: 'running' | 'stopped' | 'error';
+    metrics: {
+      cpu: string;
+      memory: string;
+      created: string;
+      redistribution: string;
+    };
+    onToggleStatus: () => void;
+    onDelete: () => void;
   }
-
-  return (
-    <CardContainer onClick={() => onHandleDetail}>
-      <TopSection>
-        <StatusIndicator status={status} />
-        <ServerName>{name}</ServerName>
-        <ButtonGroup>
-          <ActionButton $variant={isRunning ? 'danger' : 'primary'}>
-            {isRunning ? 'Stop' : 'Start'}
-          </ActionButton>
-          <ActionButton $variant="outline">Delete</ActionButton>
-        </ButtonGroup>
-      </TopSection>
-      <MetricsSection>
-        <MetricCard label="CPU Usage" value={metrics.cpu} />
-        <MetricCard label="Memory Usage" value={metrics.memory} />
-        <MetricCard label="Created" value={metrics.created} />
-        <MetricCard label="Redistribution" value={metrics.redistribution} />
-      </MetricsSection>
-    </CardContainer>
-  );
+  
+  export const ServerCard: React.FC<ServerCardProps> = ({
+    id,
+    name,
+    status,
+    metrics,
+    onToggleStatus,
+    onDelete,
+  }) => {
+    const isRunning = status === 'running';
+    const navigate = useNavigate();
+  
+    const onHandleDetail = () => {
+      navigate(`/server/detail/${id}`);
+    };
+  
+    return (
+        <CardContainer>
+            <TopSection>
+                <StatusIndicator status={status} />
+                <ServerName onClick={onHandleDetail}>{name}</ServerName>
+                <ButtonGroup>
+                    <ActionButton $variant={isRunning ? 'danger' : 'primary'} onClick={onToggleStatus}>
+                    {isRunning ? 'Stop' : 'Start'}
+                    </ActionButton>
+                    <ActionButton $variant="outline" onClick={onDelete}>
+                    Delete
+                    </ActionButton>
+                </ButtonGroup>
+            </TopSection>
+            <MetricsSection>
+                <MetricCard label="CPU Usage" value={metrics.cpu} />
+                <MetricCard label="Memory Usage" value={metrics.memory} />
+                <MetricCard label="Created" value={metrics.created} />
+                <MetricCard label="Redistribution" value={metrics.redistribution} />
+            </MetricsSection>
+        </CardContainer>
+    );
 };
+  
