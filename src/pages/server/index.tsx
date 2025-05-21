@@ -33,7 +33,6 @@ const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 5vh;
 
   @media (max-width: 640px) {
     flex-direction: column;
@@ -84,33 +83,55 @@ const serverData = [
   },
 ];
 
+// 기존 serverData를 state로 관리하도록 변경
 export const Server: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const filteredServers = serverData.filter(server =>
-    server.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  return (
-    <PageContainer>
-      <Sidebar />
-      <MainContainer>
-        <HeaderContainer>
-          <PageTitle>서버 리스트</PageTitle>
-          <SearchBar onSearch={setSearchQuery} />
-        </HeaderContainer>
-        <ServerList>
-          {filteredServers.map(server => (
-            <ServerCard
-              key={server.id}
-              id={server.id}
-              name={server.name}
-              status={server.status}
-              metrics={server.metrics}
-            />
-          ))}
-        </ServerList>
-      </MainContainer>
-    </PageContainer>
-  );
-};
+    const [searchQuery, setSearchQuery] = useState('');
+    const [servers, setServers] = useState(serverData); // 상태로 관리
+  
+    const handleToggleStatus = (id: number) => {
+      setServers(prev =>
+        prev.map(server =>
+          server.id === id
+            ? {
+                ...server,
+                status: server.status === 'running' ? 'stopped' : 'running',
+              }
+            : server
+        )
+      );
+    };
+  
+    const handleDelete = (id: number) => {
+      setServers(prev => prev.filter(server => server.id !== id));
+    };
+  
+    const filteredServers = servers.filter(server =>
+      server.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  
+    return (
+      <PageContainer>
+        <Sidebar />
+        <MainContainer>
+          <HeaderContainer>
+            <PageTitle>서버 리스트</PageTitle>
+            <SearchBar onSearch={setSearchQuery} />
+          </HeaderContainer>
+          <ServerList>
+            {filteredServers.map(server => (
+              <ServerCard
+                key={server.id}
+                id={server.id}
+                name={server.name}
+                status={server.status}
+                metrics={server.metrics}
+                onToggleStatus={() => handleToggleStatus(server.id)}
+                onDelete={() => handleDelete(server.id)}
+              />
+            ))}
+          </ServerList>
+        </MainContainer>
+      </PageContainer>
+    );
+  };
+  
