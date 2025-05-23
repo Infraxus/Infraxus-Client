@@ -7,13 +7,13 @@ interface ServerInfoCardProps {
 }
 
 const CardContainer = styled.div`
-  width: 27.5vw;
+  width: 29vw;
   background: #0B1739;
   padding: 2.3vh 1.1vw;
   border-radius: 0.5vw;
 
-  @media (max-width: 768px) {
-    width: 100%;
+  @media (max-width: 1440px) {
+    width: 28.65vw;
   }
 `;
 
@@ -55,15 +55,15 @@ const ServerInfoCard: React.FC<ServerInfoCardProps> = ({ title, value }) => (
 );
 
 interface ServerInfoProps {
-    cards: ServerInfoCardProps[];
-  }
+  cards: ServerInfoCardProps[];
+}
   
-  export const ServerInfo: React.FC<ServerInfoProps> = ({ cards }) => {
-    return (
-      <FlexContainer>
-        {cards.map((card, index) => (
-          <ServerInfoCard key={index} title={card.title} value={card.value} />
-        ))}
-      </FlexContainer>
-    );
-  };
+export const ServerInfo: React.FC<ServerInfoProps> = ({ cards }) => {
+  return (
+    <FlexContainer>
+      {cards.map((card, index) => (
+        <ServerInfoCard key={index} title={card.title} value={card.value} />
+      ))}
+    </FlexContainer>
+  );
+};
