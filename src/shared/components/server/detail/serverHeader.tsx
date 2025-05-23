@@ -35,14 +35,9 @@ const ServerTitle = styled.h1`
 const ActionButtons = styled.div`
   position: absolute;
   top: 0;
-  right: 4vw; /* 30px → 4vw */
+  right: 0;
   display: flex;
-  gap: 2.5vw; /* 18px → 2.5vw */
-
-  @media (max-width: 640px) {
-    position: static;
-    margin-bottom: 6vh;
-  }
+  gap: 2.5vw;
 `;
 
 const RestartButton = styled.button`
