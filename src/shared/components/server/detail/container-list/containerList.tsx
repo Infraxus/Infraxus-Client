@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { SearchBar } from './containerSearchBar';
 import { ContainerTable } from './containerTable';
+import { useNavigate } from 'react-router-dom';
 
 const MOCK_CONTAINERS = [
   {
@@ -38,13 +39,17 @@ const PageWrapper = styled.div`
   overflow: hidden;
   font-weight: 400;
   background-color: #081028;
-  padding: 4vh 0;
+  padding: 3vh 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5vh;
 `;
 
 export const ServerContainerList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('all');
   const [activeTab, setActiveTab] = useState('containers');
+  const navigate = useNavigate();
 
   const handleRestart = () => {
     console.log('Restarting server...');
@@ -54,17 +59,21 @@ export const ServerContainerList: React.FC = () => {
     console.log('Stopping server...');
   };
 
-  const handleContainerDetails = (name: string) => {
-    console.log(`Viewing details for ${name}`);
+  const handleContainerDetails = (containerId: number) => {
+    navigate(`${containerId}`);
   };
 
-  const handleContainerLogs = (name: string) => {
-    console.log(`Viewing logs for ${name}`);
+  const handleContainerLogs = (containerId: number) => {
+    navigate(`${containerId}?tab=log`);
   };
 
   const handleContainerRestart = (name: string) => {
     console.log(`Restarting container ${name}`);
   };
+
+  const filteredContainers = MOCK_CONTAINERS.filter(container =>
+    container.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <PageWrapper>
@@ -75,7 +84,7 @@ export const ServerContainerList: React.FC = () => {
         onStatusChange={setSelectedStatus}
       />
       <ContainerTable
-        containers={MOCK_CONTAINERS}
+        containers={filteredContainers}
         onDetails={handleContainerDetails}
         onLogs={handleContainerLogs}
         onRestart={handleContainerRestart}
