@@ -5,29 +5,19 @@ import { ServiceCommunicationProps } from './types';
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 2vh;
   align-items: stretch;
   font-weight: 400;
   background-color: #0B1739;
-  margin: 0 auto;
-  padding: 6vh 4vw 31vh 4vw;
+  padding: 3vh 2vw;
   border-radius: 1vw;
-
-  @media (max-width: 768px) {
-    margin-top: 2.5vh;
-    padding-bottom: 13vh;
-    padding-left: 3vw;
-    padding-right: 3vw;
-  }
+  width: 35vw;
 `;
 
 const Title = styled.h3`
   color: white;
-  font-size: 1.5vw;
+  font-size: 1.75rem;
   font-weight: 600;
-
-  @media (max-width: 768px) {
-    font-size: 4vw;
-  }
 `;
 
 const StatusCard = styled.div`
@@ -37,7 +27,6 @@ const StatusCard = styled.div`
   justify-content: space-between;
   align-items: stretch;
   gap: 2vw;
-  margin-top: 2vh;
   padding: 2vh 2vw;
 
   @media (max-width: 768px) {
@@ -53,26 +42,17 @@ const StatusInfo = styled.div`
 `;
 
 const FromToText = styled.div`
-  font-size: 1.2vw;
-
-  @media (max-width: 768px) {
-    font-size: 3.8vw;
-  }
+  font-size: 1.2rem;
 `;
 
 const AvgResponse = styled.div`
   color: #D1DBF9;
-  margin-top: 1vh;
-  font-size: 1vw;
-
-  @media (max-width: 768px) {
-    font-size: 3vw;
-  }
+  font-size: 1rem;
 `;
 
 const StatusCode = styled.div<{ success: boolean }>`
   color: ${({ success }) => (success ? '#008000' : '#CB3CFF')};
-  font-size: 1.1vw;
+  font-size: 1rem;
   display: flex;
   align-items: center;
 
