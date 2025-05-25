@@ -1,171 +1,150 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { LogEntryProps } from './types';
+import { LogPopup } from './log/logPopup';
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  background-color: #0B1739;
-  padding: 8vh 3.6vw;
+  gap: 2vh;
+  width: 65vw;
+  background-color: #0b1739;
+  padding: 3vh 2vw;
   border-radius: 1vw;
 `;
 
 const Heading = styled.h3`
   color: white;
-  font-size: 1.8vw;
+  font-size: 1.75rem;
   font-weight: 600;
 `;
 
 const SearchInput = styled.input`
-  margin-top: 2.4vh;
-  color: #7E89AC;
+  color: #7e89ac;
   background-color: #081028;
-  padding: 2.4vh 4vw;
-  font-size: 1.2vw;
+  padding: 1.5vh 1.25vw;
+  font-size: 1rem;
   border: 1px solid #081028;
   border-radius: 0.8vw;
   outline: none;
 
   &:focus {
-    border-color: #CB3CFF;
+    border-color: #cb3cff;
   }
 `;
 
-const FilterTitle = styled.div`
-  margin-top: 2.4vh;
-  color: #D1DBF9;
-  font-size: 1.2vw;
-`;
-
-const FilterButton = styled.button`
-  margin-top: 2vh;
-  background-color: #081028;
-  padding: 2vh 9vw;
-  border-radius: 0.8vw;
-  color: white;
-  font-size: 1.2vw;
-  text-align: center;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #0E1D45;
-  }
-`;
-
-const NewFilterButton = styled(FilterButton)`
+const LogContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
-const NewFilterContent = styled.div`
-  display: flex;
-  width: 16vw;
-  gap: 2vw;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const FilterIcon = styled.img`
-  width: 3.4vw;
-  object-fit: contain;
+  gap: 2vh;
 `;
 
 const LogTitle = styled.div`
-  margin-top: 2.4vh;
-  color: #D1DBF9;
+  color: #d1dbf9;
   font-size: 1.2vw;
 `;
 
 const LogEntryWrapper = styled.div`
   border-radius: 0.8vw;
   display: flex;
-  flex-direction: column;
-  width: 100%;
+  width: 65vw;
   background-color: #081028;
-  margin-top: 1vh;
-  padding: 2vh 2.5vw;
-`;
-
-const LogEntryHeader = styled.div`
-  display: flex;
-  gap: 4vw;
-  font-size: 1vw;
-`;
-
-const Timestamp = styled.div`
-  color: #D1DBF9;
+  padding: 2vh 0;
+  font-size: 1.25rem;
+  cursor: pointer;
 `;
 
 const Service = styled.div`
   color: white;
+  width: 10%;
   text-align: center;
 `;
 
 const Message = styled.div`
-  margin-top: 1vh;
   color: white;
-  font-size: 1.2vw;
+  width: 60%;
 `;
 
-const LogEntry: React.FC<LogEntryProps> = ({ timestamp, service, message }) => (
-  <LogEntryWrapper>
-    <LogEntryHeader>
-      <Timestamp>{timestamp}</Timestamp>
-      <Service>{service}</Service>
-    </LogEntryHeader>
+const Timestamp = styled.div`
+  color: #d1dbf9;
+  width: 40%;
+  padding: 0 2vw;
+  text-align: right;
+`;
+
+const LogEntry: React.FC<
+  LogEntryProps & { onClick: () => void }
+> = ({ timestamp, service, message, onClick }) => (
+  <LogEntryWrapper onClick={onClick}>
+    <Service>{service}</Service>
     <Message>{message}</Message>
+    <Timestamp>{timestamp}</Timestamp>
   </LogEntryWrapper>
 );
 
 export const LogSection: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedFilter, setSelectedFilter] = useState('Server Error');
+  const [selectedLog, setSelectedLog] = useState<LogEntryProps | null>(null);
 
   const logs: LogEntryProps[] = [
     {
       timestamp: '2024-01-20 15:45:23',
       service: 'api',
       message: 'Connection timeout',
+      content: 'Failed to connect to upstream service after 30s timeout',
+      header: [
+        { key: 'X-Request-ID', value: 'req_abc123' },
+        { key: 'User-Agent', value: 'Mozilla/5.0' },
+        { key: 'Accept', value: 'application/json' },
+      ],
+      severity: 'ERROR',
+      env: 'production',
     },
     {
       timestamp: '2024-01-20 15:44:12',
       service: 'web',
       message: 'High latency detected',
+      content: 'Request processing time exceeded threshold: 2500ms',
+      header: [
+        { key: 'X-Request-ID', value: 'req_9f8e7d6c' },
+        { key: 'User-Agent', value: 'Mozilla/5.0' },
+        { key: 'Accept', value: 'text/html' },
+      ],
+      severity: 'WARNING',
+      env: 'production',
     },
   ];
+  
+
+  const filteredLogs = logs.filter((log) =>
+    log.message.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
-    <Container>
-      <Heading>Log Search</Heading>
-      <SearchInput
-        type="text"
-        placeholder="Search logs..."
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-      />
+    <>
+      <Container>
+        <Heading>Log Search</Heading>
+        <SearchInput
+          type="text"
+          placeholder="Search logs..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <LogContainer>
+          <LogTitle>Recent Logs</LogTitle>
+          {filteredLogs.map((log) => (
+            <LogEntry
+              key={log.timestamp}
+              {...log}
+              onClick={() => setSelectedLog(log)}
+            />
+          ))}
+        </LogContainer>
+      </Container>
 
-      <FilterTitle>Filters</FilterTitle>
-      <FilterButton onClick={() => setSelectedFilter('Server Error')}>
-        {selectedFilter}
-      </FilterButton>
-
-      <NewFilterButton onClick={() => console.log('Add new filter')}>
-        <NewFilterContent>
-          <FilterIcon
-            src="https://cdn.builder.io/api/v1/image/assets/c8df5d00d5254ba7af7ef0a63b65be18/e9bc4f562426ed4432d396812c9ef3972547fb92?placeholderIfAbsent=true"
-            alt="Add filter"
-          />
-          <div>New Filter</div>
-        </NewFilterContent>
-      </NewFilterButton>
-
-      <LogTitle>Recent Logs</LogTitle>
-      {logs.map((log) => (
-        <LogEntry key={log.timestamp} {...log} />
-      ))}
-    </Container>
+      {selectedLog && (
+        <LogPopup data={selectedLog} onClose={() => setSelectedLog(null)} />
+      )}
+    </>
   );
 };
