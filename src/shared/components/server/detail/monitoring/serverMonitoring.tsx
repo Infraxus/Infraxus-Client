@@ -10,11 +10,9 @@ const Container = styled.div`
   overflow: hidden;
   background-color: #081028;
   padding: 3vh 0;
-
-  @media (max-width: 768px) {
-    padding-left: 2vw;
-    padding-right: 2vw;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
 `;
 
 const UsageStatusContainer = styled.div`
@@ -24,35 +22,8 @@ const UsageStatusContainer = styled.div`
 `;
 
 const SectionWrapper = styled.div`
-  margin-top: 2.5vh;
-  width: 100%;
-`;
-
-const SectionFlex = styled.div`
   display: flex;
   gap: 2vw;
-  width: 100%;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 2vh;
-  }
-`;
-
-const LogWrapper = styled.div`
-  width: 71vw;
-
-  @media (max-width: 768px) {
-    width: 100%;
-  }
-`;
-
-const ServiceWrapper = styled.div`
-  width: 27vw;
-
-  @media (max-width: 768px) {
-    width: 100%;
-  }
 `;
 
 export const ServerMonitoring: React.FC = () => {
@@ -76,14 +47,8 @@ export const ServerMonitoring: React.FC = () => {
             </UsageStatusContainer>
             <MonitoringSection />
             <SectionWrapper>
-                <SectionFlex>
-                <LogWrapper>
-                    <LogSection />
-                </LogWrapper>
-                <ServiceWrapper>
-                    <ServiceCommunication />
-                </ServiceWrapper>
-                </SectionFlex>
+              <LogSection />
+              <ServiceCommunication />
             </SectionWrapper>
         </Container>
     );
