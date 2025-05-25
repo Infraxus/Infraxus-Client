@@ -9,8 +9,8 @@ interface UsageStatusProps {
 }
 
 const UsageStatusContainer = styled.div`
-    width: 13.2vw;
-    height: 9vh;
+    width: 15.845vw;
+    height: 10vh;
     flex-shrink: 0;
     padding: 1.5vh 1vw;
     border-radius: 0.5rem;
@@ -41,7 +41,7 @@ const PercentValue = styled.p`
 `;
 
 const ProgressBarContainer = styled.div`
-    width: 12.5vw;
+    width: 15.75vw;
     height: 0.75vh;
     flex-shrink: 0;
     background-color: ${color.NeutralColor800};
