@@ -29,4 +29,20 @@ export interface ServiceCommunicationProps {
       type: 'success' | 'error';
     };
 }
+
+export interface HeaderEntry {
+    key: string;
+    value: string;
+}
+
+export interface LogEntryProps {
+    timestamp: string;
+    service: string;
+    message: string;
+    content: string;
+    header: HeaderEntry[];
+    severity: 'INFO' | 'WARNING' | 'ERROR';
+    env: string;
+}
+  
   
