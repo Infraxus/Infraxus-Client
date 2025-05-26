@@ -1,24 +1,51 @@
 import React from 'react';
+import styled from 'styled-components';
 
 interface MetaInformationProps {
   severity: string;
   environment: string;
 }
 
+const MetaContainer = styled.div`
+  display: flex;
+  gap: 1vw;
+  align-items: stretch;
+  gap: 2vw;
+  font-weight: 400;
+  white-space: nowrap;
+`;
+
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1vh;
+`;
+
+const Label = styled.div`
+  color: rgba(174, 185, 225, 1);
+  font-size: 1.25rem;
+`;
+
+const Value = styled.div`
+  color: white;
+  font-size: 1rem;
+`;
+
 export const MetaInformation: React.FC<MetaInformationProps> = ({
   severity,
   environment,
 }) => {
   return (
-    <div className="flex items-stretch gap-6 text-sm font-normal whitespace-nowrap mt-6">
-      <div className="flex flex-col items-stretch">
-        <div className="text-[rgba(174,185,225,1)]">Severity</div>
-        <div className="text-white mt-1">{severity}</div>
-      </div>
-      <div className="flex flex-col items-stretch">
-        <div className="text-[rgba(174,185,225,1)]">Environment</div>
-        <div className="text-white mt-1">{environment}</div>
-      </div>
-    </div>
+    <MetaContainer>
+      <Column>
+        <Label>Severity</Label>
+        <Value>{severity}</Value>
+      </Column>
+      <Column>
+        <Label>Environment</Label>
+        <Value>{environment}</Value>
+      </Column>
+    </MetaContainer>
   );
 };
