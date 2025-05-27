@@ -23,7 +23,7 @@ const MainContainer = styled.div`
 const PageTitle = styled.p`
   color: ${color.NeutralColor100};
   font-family: "Inter";
-  font-size: 2.5vh;
+  font-size: 1.25rem;
   font-style: normal;
   font-weight: 600;
   line-height: 3.25vh;
