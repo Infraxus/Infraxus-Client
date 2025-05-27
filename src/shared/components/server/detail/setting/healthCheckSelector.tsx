@@ -1,4 +1,34 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const Wrapper = styled.div``;
+
+const Title = styled.h3`
+  color: #d1dbf9;
+  font-size: 1.5rem;
+  font-weight: bold;
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  align-items: stretch;
+  gap: 2vw;
+  margin-top: 2vh;
+  text-align: center;
+  color: white;
+  font-weight: normal;
+`;
+
+const MethodButton = styled.button<{ selected: boolean }>`
+  color: white;
+  border-radius: 1vh;
+  border: none;
+  padding: 1.5vh 3vw;
+  font-size: 1rem;
+  background-color: ${({ selected }) => (selected ? '#0E43FB' : '#081028')};
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+`;
 
 const healthCheckMethods = [
   { id: 'http', label: 'HTTP Check' },
@@ -16,21 +46,19 @@ export const HealthCheckSelector: React.FC<HealthCheckSelectorProps> = ({
   onMethodChange
 }) => {
   return (
-    <div className="mt-[30px]">
-      <h3 className="text-[#D1DBF9] text-sm font-bold">Health Check Method</h3>
-      <div className="flex items-stretch gap-[15px] text-sm text-white font-normal text-center mt-[15px]">
+    <Wrapper>
+      <Title>Health Check Method</Title>
+      <ButtonGroup>
         {healthCheckMethods.map((method) => (
-          <button
+          <MethodButton
             key={method.id}
+            selected={selectedMethod === method.id}
             onClick={() => onMethodChange(method.id)}
-            className={`text-white rounded px-5 py-2.5 ${
-              selectedMethod === method.id ? 'bg-[#0E43FB]' : 'bg-[#081028]'
-            }`}
           >
             {method.label}
-          </button>
+          </MethodButton>
         ))}
-      </div>
-    </div>
+      </ButtonGroup>
+    </Wrapper>
   );
 };
