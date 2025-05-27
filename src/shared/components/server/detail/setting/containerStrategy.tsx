@@ -1,33 +1,74 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  justify-content: center;
+`;
+
+const FormRow = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 90vw;
+  gap: 2vh;
+
+  @media (max-width: 768px) {
+    max-width: 90vw;
+  }
+`;
+
+const InputContainer = styled.div`
+  display: flex;
+  gap: 1vw;
+`;
+
+const InputGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 30vw;
+`;
+
+const Label = styled.label`
+  color: #d1dbf9;
+  font-weight: bold;
+  font-size: 1.5rem;
+`;
+
+const SubText = styled.div`
+  color: #7e89ac;
+  font-weight: normal;
+  font-size: 1.25rem;
+`;
+
+const Input = styled.input`
+  margin-top: 1.5vh;
+  height: 6vh;
+  width: 42vw;
+  max-width: 645px;
+  font-size: 1rem;
+  border-radius: 0.5vh;
+  border: 1px solid #d1dbf9;
+  background-color: #0b1739;
+  padding-left: 1vw;
+  color: white;
+`;
 
 export const ContainerStrategy: React.FC = () => {
   return (
-    <div className="mt-[30px]">
-      <div className="flex w-full max-w-[984px] items-stretch gap-5 text-sm flex-wrap justify-between max-md:max-w-full">
-        <div className="flex flex-col items-stretch">
-          <label className="text-[#D1DBF9] font-bold">
-            Container Replacement Strategy
-          </label>
-          <div className="text-[#7E89AC] font-normal mt-[15px]">
-            Replace N containers at a time
-          </div>
-          <input
-            type="number"
-            className="rounded border border-[color:var(--Neutral-Color-300,#D1DBF9)] w-[645px] h-[43px] bg-[#0B1739] border-solid mt-2 px-3"
-            placeholder="Enter number of containers"
-          />
-        </div>
-        <div className="flex flex-col items-stretch">
-          <label className="text-[#7E89AC] font-normal">
-            Waiting time between replacements (seconds)
-          </label>
-          <input
-            type="number"
-            className="rounded border border-[color:var(--Neutral-Color-300,#D1DBF9)] w-[645px] h-[43px] bg-[#0B1739] border-solid mt-2 px-3"
-            placeholder="Enter waiting time"
-          />
-        </div>
-      </div>
-    </div>
+    <Wrapper>
+      <FormRow>
+        <Label>Container Replacement Strategy</Label>
+        <InputContainer>
+          <InputGroup>
+            <SubText>Replace N containers at a time</SubText>
+            <Input type="number" placeholder="Enter number of containers" />
+          </InputGroup>
+          <InputGroup>
+            <SubText>Waiting time between replacements (seconds)</SubText>
+            <Input type="number" placeholder="Enter waiting time" />
+          </InputGroup>
+        </InputContainer>
+      </FormRow>
+    </Wrapper>
   );
 };
