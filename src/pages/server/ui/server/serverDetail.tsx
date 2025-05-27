@@ -16,15 +16,6 @@ const MainContainer = styled.div`
   background-color: #081028;
   margin: 0 auto;
   padding: 4vh 2vw;
-
-  @media (max-width: 991px) {
-    max-width: 99vw;
-  }
-
-  @media (max-width: 640px) {
-    max-width: 100vw;
-    padding: 2vh 2vw;
-  }
 `;
 
 export const ServerDetail: React.FC = () => {
@@ -44,7 +35,7 @@ export const ServerDetail: React.FC = () => {
       console.log('Stopping server...');
       setServerStatus('stopped');
     };
-    
+
     const renderTabContent = () => {
         switch (activeTab) {
         case 'Status':
