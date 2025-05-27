@@ -1,10 +1,11 @@
 import React from 'react';
+import styled from 'styled-components';
 
 const policyTypes = [
   { id: 'rolling', label: 'Rolling Update' },
   { id: 'bluegreen', label: 'Blue-Green' },
   { id: 'canary', label: 'Canary' },
-  { id: 'manual', label: 'Manual Deployment' }
+  { id: 'manual', label: 'Manual Deployment' },
 ];
 
 interface PolicyTypeSelectorProps {
@@ -12,26 +13,55 @@ interface PolicyTypeSelectorProps {
   onPolicyChange: (policy: string) => void;
 }
 
+// Styled components
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Title = styled.h3`
+  color: #d1dbf9;
+  font-size: 1.5rem;
+  font-weight: bold;
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4vh;
+  margin-top: 1.5vh;
+`;
+
+const PolicyButton = styled.button<{ active: boolean }>`
+  color: white;
+  text-align: center;
+  font-weight: 400;
+  border-radius: 0.5vh;
+  border: none;
+  padding: 1vh 2vw;
+  font-size: 1rem;
+  background-color: ${({ active }) => (active ? '#0E43FB' : '#081028')};
+  transition: background-color 0.2s;
+`;
+
 export const PolicyTypeSelector: React.FC<PolicyTypeSelectorProps> = ({
   selectedPolicy,
-  onPolicyChange
+  onPolicyChange,
 }) => {
   return (
-    <div className="flex flex-col">
-      <h3 className="text-[#D1DBF9] text-sm font-bold">Policy Type</h3>
-      <div className="flex gap-3.5 text-sm flex-wrap mt-[15px]">
+    <Wrapper>
+      <Title>Policy Type</Title>
+      <ButtonGroup>
         {policyTypes.map((policy) => (
-          <button
+          <PolicyButton
             key={policy.id}
+            active={selectedPolicy === policy.id}
             onClick={() => onPolicyChange(policy.id)}
-            className={`text-white rounded font-normal text-center px-5 py-2.5 ${
-              selectedPolicy === policy.id ? 'bg-[#0E43FB]' : 'bg-[#081028]'
-            }`}
           >
             {policy.label}
-          </button>
+          </PolicyButton>
         ))}
-      </div>
-    </div>
+      </ButtonGroup>
+    </Wrapper>
   );
 };
