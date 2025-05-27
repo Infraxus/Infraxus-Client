@@ -5,6 +5,7 @@ import { NewServerConfig } from "./pages/new-server/ui/config/index.tsx";
 import { NewServerContainer } from "./pages/new-server/ui/container/index.tsx";
 import { Server } from "./pages/server/index.tsx";
 import { ServerDetail } from "./pages/server/ui/server/serverDetail.tsx";
+import AlertsPage from "./pages/alerts/AlertsPage.tsx";
 
 const App = () => (
   <Routes>
@@ -15,7 +16,7 @@ const App = () => (
     <Route path="/server" element={<Server />} />
     <Route path="/server/detail/:serverId" element={<ServerDetail />} />
     <Route path="/server/detail/:serverId/container" element={<Server />} />
-    {/* <Route path="/alram" element={<Alram />} /> */}
+    <Route path="/alram" element={<AlertsPage />} />
     {/* <Route path="/setting" element={<Setting />} /> */}
   </Routes>
 );
