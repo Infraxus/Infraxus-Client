@@ -1,9 +1,28 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import { PolicyTypeSelector } from './policyTypeSelector';
 import { ContainerStrategy } from './containerStrategy';
 import { HealthCheckSelector } from './healthCheckSelector';
 import { AutomaticRollback } from './automaticRollback';
 import { ActionButtons } from './actionButtons';
+
+const Main = styled.main`
+  overflow: hidden;
+  background-color: #081028;
+  margin: 3vh 0;
+  width: 96vw;
+`;
+
+const Section = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  background-color: #0b1739;
+  padding: 4vh 2.5vw;
+  border-radius: 1.2vh;
+  gap: 5vh;
+`;
 
 export const ServerDeploymentSetting: React.FC = () => {
   const [selectedPolicy, setSelectedPolicy] = useState('rolling');
@@ -11,28 +30,23 @@ export const ServerDeploymentSetting: React.FC = () => {
   const [automaticRollback, setAutomaticRollback] = useState(false);
 
   return (
-    <main className="overflow-hidden bg-[#081028] pt-[30px] pb-[339px] px-[30px] max-md:pb-[100px] max-md:px-5">
-        <section className="flex w-full flex-col items-stretch bg-[#0B1739] mt-[31px] py-[30px] rounded-lg max-md:max-w-full">
-            <div className="flex w-full flex-col px-[30px] max-md:max-w-full max-md:px-5">
-                <PolicyTypeSelector
-                    selectedPolicy={selectedPolicy}
-                    onPolicyChange={setSelectedPolicy}
-                />
-                
-                <ContainerStrategy />
-                
-                <HealthCheckSelector
-                    selectedMethod={selectedHealthCheck}
-                    onMethodChange={setSelectedHealthCheck}
-                />
-                
-                <AutomaticRollback
-                    enabled={automaticRollback}
-                    onToggle={() => setAutomaticRollback(!automaticRollback)}
-                />
-            </div>
-            <ActionButtons />
-        </section>
-    </main>
+    <Main>
+      <Section>
+          <PolicyTypeSelector
+            selectedPolicy={selectedPolicy}
+            onPolicyChange={setSelectedPolicy}
+          />
+          <ContainerStrategy />
+          <HealthCheckSelector
+            selectedMethod={selectedHealthCheck}
+            onMethodChange={setSelectedHealthCheck}
+          />
+          <AutomaticRollback
+            enabled={automaticRollback}
+            onToggle={() => setAutomaticRollback(!automaticRollback)}
+          />
+          <ActionButtons />
+      </Section>
+    </Main>
   );
 };
