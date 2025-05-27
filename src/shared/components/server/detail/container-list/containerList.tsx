@@ -48,16 +48,7 @@ const PageWrapper = styled.div`
 export const ServerContainerList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('all');
-  const [activeTab, setActiveTab] = useState('containers');
   const navigate = useNavigate();
-
-  const handleRestart = () => {
-    console.log('Restarting server...');
-  };
-
-  const handleStop = () => {
-    console.log('Stopping server...');
-  };
 
   const handleContainerDetails = (containerId: number) => {
     navigate(`${containerId}`);
