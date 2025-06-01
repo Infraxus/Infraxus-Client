@@ -36,19 +36,17 @@ const SelectValue = SelectPrimitive.Value;
 
 const StyledTrigger = styled(SelectPrimitive.Trigger)`
   display: flex;
-  flex-direction: coloum;
   align-items: center;
   justify-content: space-between;
-  max-width: 92vw;
-  min-width: 100%;
-  height: 5vh;
-  padding: 1vh 1vw;
-  border-radius: 0.5vh;
-  background-color: ${color.NeutralColor800};
+  width: 150px;
+  height: 40px;
+  padding: 0 10px;
+  border-radius: 5px;
+  background-color: ${color.NeutralColor700};
   color: ${color.NeutralColor100};
-  font-size: 1.25vh;
+  font-size: 14px;
   outline: none;
-  border: none;
+  border: 1px solid ${color.NeutralColor600};
   cursor: pointer;
 
   & > span {
@@ -59,9 +57,17 @@ const StyledTrigger = styled(SelectPrimitive.Trigger)`
 `;
 
 const StyledIcon = styled.div`
-  width: 2vh;
-  height: 2vh;
+  width: 16px;
+  height: 16px;
   opacity: 0.7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 const StyledScrollButton = styled.div`
@@ -73,29 +79,31 @@ const StyledScrollButton = styled.div`
 `;
 
 const StyledContent = styled(SelectPrimitive.Content)<{ position: string }>`
-  max-height: 40vh;
-  max-width: 50vh;
+  max-height: 200px;
+  width: var(--radix-select-trigger-width);
   overflow-y: auto;
-  background-color: ${color.NeutralColor800};
-  border-radius: 0.5vh;
-  box-shadow: 0 0.5vh 2vh rgba(0, 0, 0, 0.3);
-  padding: 0.5vh;
+  background-color: ${color.NeutralColor700};
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  padding: 5px;
+  border: 1px solid ${color.NeutralColor600};
 `;
 
 const StyledLabel = styled(SelectPrimitive.Label)`
-  padding: 1vh 1vw;
-  font-size: 1rem;
-  color: ${color.NeutralColor100};
+  padding: 10px;
+  font-size: 14px;
+  color: ${color.NeutralColor300};
 `;
 
 const StyledItem = styled(SelectPrimitive.Item)`
-  padding: 1vh 1vw;
-  border-radius: 0.5vh;
+  padding: 10px;
+  border-radius: 3px;
   color: ${color.NeutralColor100};
   cursor: pointer;
+  font-size: 14px;
 
   &:hover {
-    background-color: ${color.NeutralColor500};
+    background-color: ${color.NeutralColor600};
   }
 
   &[data-disabled] {
@@ -105,44 +113,47 @@ const StyledItem = styled(SelectPrimitive.Item)`
 `;
 
 const StyledSeparator = styled(SelectPrimitive.Separator)`
-  height: 0.2vh;
-  background-color: ${color.NeutralColor800};
-  margin: 0.5vh 0;
+  height: 1px;
+  background-color: ${color.NeutralColor600};
+  margin: 5px 0;
 `;
 
 const Container = styled.div`
-  width: 100%;
 `;
 
 const LabelContainer = styled.div.withConfig({
   shouldForwardProp: (prop) => prop !== "showCheckbox",
 })<{ showCheckbox: boolean }>`
-  font-size: 1.04vh;
-  margin-bottom: 1.04vh;
+  font-size: 12px;
+  margin-bottom: 5px;
   display: flex;
   align-items: center;
-  gap: 0.83vw;
-  color: ${({ showCheckbox }) => (showCheckbox ? "#AEB9E1" : "#FFFFFF")};
+  gap: 5px;
+  color: ${color.NeutralColor300};
 `;
 
 const StyledCheckbox = styled(Checkbox)`
-  width: 1.56vw;
-  height: 1.56vh;
-  border-color: #7e89ac;
-  background-color: #ffffff;
+  width: 16px;
+  height: 16px;
+  border-color: ${color.NeutralColor400};
+  background-color: transparent;
 
   &[data-state="checked"] {
-    background-color: #cb3cff;
-    border-color: #cb3cff;
+    background-color: ${color.SecondaryColor2};
+    border-color: ${color.SecondaryColor2};
+  }
+
+  svg {
+    color: ${color.NeutralColor100};
   }
 `;
 
 const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
   ({ className, children, ...props }, ref) => (
     <StyledTrigger ref={ref} className={className} {...props}>
-      {children}
+      <SelectValue placeholder="모두" />
       <StyledIcon as={SelectPrimitive.Icon}>
-        <ChevronDown />
+        <ChevronDown size={16} />
       </StyledIcon>
     </StyledTrigger>
   )
@@ -154,7 +165,7 @@ const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
     <StyledItem ref={ref} className={className} value={value} {...props}>
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
       <SelectPrimitive.ItemIndicator>
-        <Check />
+        <Check size={16} />
       </SelectPrimitive.ItemIndicator>
     </StyledItem>
   )

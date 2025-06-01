@@ -9,7 +9,7 @@ interface SearchBarProps {
 const SearchBarWrapper = styled.div`
   background-color: ${color.SecondaryColor1};
   padding: 0 0.75vw;
-  width: 15vw;
+  width: 80%;
   display: flex;
   gap: 0.75vw;
   border-radius: 0.5rem;
